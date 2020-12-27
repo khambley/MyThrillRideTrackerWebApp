@@ -9,6 +9,7 @@ namespace MyThrillRideTrackerWebApp.Models
 {
     public class Rating : BaseModel
     {
+        [Column(TypeName = "decimal(8, 2)")]
         public decimal Stars { get; set; }
 
         // 1 Park -> 1 Rating (FK)
