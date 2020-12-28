@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,20 @@ namespace MyThrillRideTrackerWebApp.Controllers
         // GET: Parks
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Parks.ToListAsync());
+            var parksList = _context.Parks.Include(p => p.ImageFiles).ToList();
+            var imageList = new List<ImageFileName>();
+            //IEnumerable<Park> Parks = _context.Parks
+            //.Include(p => p.ImageFiles).ToArray();
+            foreach (var park in parksList)
+            {
+                imageList.Add(_context.ImageFileNames
+                    .FirstOrDefault(i => i.ParkId == park.Id));
+                park.ImageFiles = imageList;
+                //parksList.Add(park);
+
+            }
+            
+            return View(parksList);
         }
 
         // GET: Parks/Details/5
@@ -59,7 +73,10 @@ namespace MyThrillRideTrackerWebApp.Controllers
         public async Task<IActionResult> Create([Bind("City,State,Id,Name,Description")] Park park, List<IFormFile> files)
         {
             if (ModelState.IsValid)
-            {
+            { 
+                _context.Add(park);
+                await _context.SaveChangesAsync();
+
                 if (files != null)
                 {
                     foreach (var file in files)
@@ -98,9 +115,6 @@ namespace MyThrillRideTrackerWebApp.Controllers
                         }
                     }
                 }
-
-                _context.Add(park);
-                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(park);
