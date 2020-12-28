@@ -211,13 +211,13 @@ namespace MyThrillRideTrackerWebApp.Migrations
                         .WithMany("ImageFiles")
                         .HasForeignKey("VisitId");
 
-                    b.Navigation("Park");
+                    //b.Navigation("Park");
 
-                    b.Navigation("Rating");
+                    //b.Navigation("Rating");
 
-                    b.Navigation("Ride");
+                    //b.Navigation("Ride");
 
-                    b.Navigation("Visit");
+                    //b.Navigation("Visit");
                 });
 
             modelBuilder.Entity("MyThrillRideTrackerWebApp.Models.Rating", b =>
@@ -230,9 +230,9 @@ namespace MyThrillRideTrackerWebApp.Migrations
                         .WithMany("Ratings")
                         .HasForeignKey("RideId");
 
-                    b.Navigation("Park");
+                    //b.Navigation("Park");
 
-                    b.Navigation("Ride");
+                    //b.Navigation("Ride");
                 });
 
             modelBuilder.Entity("MyThrillRideTrackerWebApp.Models.Ride", b =>
@@ -245,7 +245,7 @@ namespace MyThrillRideTrackerWebApp.Migrations
                         .WithMany("Rides")
                         .HasForeignKey("VisitId");
 
-                    b.Navigation("Park");
+                    //b.Navigation("Park");
                 });
 
             modelBuilder.Entity("MyThrillRideTrackerWebApp.Models.Visit", b =>
@@ -254,40 +254,40 @@ namespace MyThrillRideTrackerWebApp.Migrations
                         .WithMany()
                         .HasForeignKey("ParkId");
 
-                    b.Navigation("Park");
+                    //b.Navigation("Park");
                 });
 
             modelBuilder.Entity("MyThrillRideTrackerWebApp.Models.ImageFileName", b =>
                 {
-                    b.Navigation("ImageFiles");
+                    //b.Navigation("ImageFiles");
                 });
 
             modelBuilder.Entity("MyThrillRideTrackerWebApp.Models.Park", b =>
                 {
-                    b.Navigation("ImageFiles");
+                    //b.Navigation("ImageFiles");
 
-                    b.Navigation("Ratings");
+                    //b.Navigation("Ratings");
 
-                    b.Navigation("Rides");
+                    //b.Navigation("Rides");
                 });
 
             modelBuilder.Entity("MyThrillRideTrackerWebApp.Models.Rating", b =>
                 {
-                    b.Navigation("ImageFiles");
+                    //b.Navigation("ImageFiles");
                 });
 
             modelBuilder.Entity("MyThrillRideTrackerWebApp.Models.Ride", b =>
                 {
-                    b.Navigation("ImageFiles");
+                    //b.Navigation("ImageFiles");
 
-                    b.Navigation("Ratings");
+                    //b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("MyThrillRideTrackerWebApp.Models.Visit", b =>
                 {
-                    b.Navigation("ImageFiles");
+                    //b.Navigation("ImageFiles");
 
-                    b.Navigation("Rides");
+                    //b.Navigation("Rides");
                 });
 #pragma warning restore 612, 618
         }
