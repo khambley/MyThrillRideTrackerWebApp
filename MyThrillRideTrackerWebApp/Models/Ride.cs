@@ -20,9 +20,8 @@ namespace MyThrillRideTrackerWebApp.Models
 
         public List<Rating> Ratings { get; set; } // 1 Ride -> Many Ratings
 
+        public int ParkId { get; set; }
         public Park Park { get; set; } // 1 Park -> 1 Ride 
         
-
-
     }
 }

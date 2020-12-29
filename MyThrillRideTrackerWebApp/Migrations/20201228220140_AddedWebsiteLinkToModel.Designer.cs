@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyThrillRideTrackerWebApp.Models;
 
 namespace MyThrillRideTrackerWebApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201228220140_AddedWebsiteLinkToModel")]
+    partial class AddedWebsiteLinkToModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,7 +150,7 @@ namespace MyThrillRideTrackerWebApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ParkId")
+                    b.Property<int?>("ParkId")
                         .HasColumnType("int");
 
                     b.Property<string>("RideType")
@@ -157,9 +159,14 @@ namespace MyThrillRideTrackerWebApp.Migrations
                     b.Property<int>("TopSpeed")
                         .HasColumnType("int");
 
+                    b.Property<int?>("VisitId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ParkId");
+
+                    b.HasIndex("VisitId");
 
                     b.ToTable("Rides");
                 });
@@ -177,7 +184,7 @@ namespace MyThrillRideTrackerWebApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ParkId")
+                    b.Property<int?>("ParkId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("VisitDate")
@@ -230,18 +237,18 @@ namespace MyThrillRideTrackerWebApp.Migrations
                 {
                     b.HasOne("MyThrillRideTrackerWebApp.Models.Park", "Park")
                         .WithMany("Rides")
-                        .HasForeignKey("ParkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParkId");
+
+                    b.HasOne("MyThrillRideTrackerWebApp.Models.Visit", null)
+                        .WithMany("Rides")
+                        .HasForeignKey("VisitId");
                 });
 
             modelBuilder.Entity("MyThrillRideTrackerWebApp.Models.Visit", b =>
                 {
                     b.HasOne("MyThrillRideTrackerWebApp.Models.Park", "Park")
-                        .WithMany("Visits")
-                        .HasForeignKey("ParkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("ParkId");
                 });
 #pragma warning restore 612, 618
         }

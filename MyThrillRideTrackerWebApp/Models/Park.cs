@@ -11,8 +11,11 @@ namespace MyThrillRideTrackerWebApp.Models
     {
         public string City { get; set; }
         public string State { get; set; }
+        public string WebsiteLink { get; set; }
+        public string ParkMapLink { get; set; }
         public List<Rating> Ratings { get; set; } // 1 Park => Many Ratings
         public List<Ride> Rides { get; set; } // 1 Park => Many Rides
+        public List<Visit> Visits { get; set; } // 1 Park -> Many Visits
 
     }
 }

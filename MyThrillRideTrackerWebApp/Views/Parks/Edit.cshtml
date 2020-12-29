@@ -1,17 +1,45 @@
 ﻿@model MyThrillRideTrackerWebApp.Models.Park
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Park";
 }
 
-<h1>Edit</h1>
 
-<h4>Park</h4>
+<h4>Edit Park</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Upload Image:</label>
+                <div class="control-label">
+                    <img id="user_img" width="100" />
+                </div>
+                <input type="file" asp-for="ImageFiles" name="files" multiple="multiple" class="form-control no-border no-padding-left" onchange="show(this)" />
+                <script type="text/javascript">
+                    function show(input) {
+                        if (input.files && input.files[0]) {
+                            var filereader = new FileReader();
+                            filereader.onload = function (e) {
+                                $('#user_img').attr('src', e.target.result);
+                            }
+                            filereader.readAsDataURL(input.files[0]);
+                        }
+                    }
+                </script>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="City" class="control-label"></label>
                 <input asp-for="City" class="form-control" />
@@ -22,16 +50,15 @@
                 <input asp-for="State" class="form-control" />
                 <span asp-validation-for="State" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="WebsiteLink" class="control-label"></label>
+                <input asp-for="WebsiteLink" class="form-control" />
+                <span asp-validation-for="WebsiteLink" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label asp-for="ParkMapLink" class="control-label"></label>
+                <input asp-for="ParkMapLink" class="form-control" />
+                <span asp-validation-for="ParkMapLink" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
